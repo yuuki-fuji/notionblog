@@ -17,7 +17,7 @@ export default function Home({ posts }) {
 
       <main className={styles.container}>
         <h2 className={styles.heading}>All Posts</h2>
-        <ol className={styles.posts}>
+        <ol className="">
           {posts.map((post) => {
             const date = new Date(post.last_edited_time).toLocaleString(
               "en-US",
