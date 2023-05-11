@@ -15,8 +15,8 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.container}>
-        <h2 className={styles.heading}>All Posts</h2>
+      <main className="">
+        <h2 className="">All Posts</h2>
         <ol className="">
           {posts.map((post) => {
             const date = new Date(post.last_edited_time).toLocaleString(
@@ -28,8 +28,8 @@ export default function Home({ posts }) {
               }
             );
             return (
-              <li key={post.id} className={styles.post}>
-                <h3 className={styles.postTitle}>
+              <li key={post.id} className="">
+                <h3 className="">
                   <Link href={`/${post.id}`}>
                     <a>
                       <Text text={post.properties.Name.title} />
@@ -37,7 +37,7 @@ export default function Home({ posts }) {
                   </Link>
                 </h3>
 
-                <p className={styles.postDescription}>{date}</p>
+                <p className="">{date}</p>
                 <Link href={`/${post.id}`}>
                   <a> Read post →</a>
                 </Link>

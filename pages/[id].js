@@ -15,6 +15,7 @@ export const Text = ({ text }) => {
       text,
     } = value;
     return (
+      // TODO:tailwindcss でスタイルを当てなおす
       <span
         className={[
           bold ? styles.bold : "",
@@ -127,8 +128,8 @@ const renderBlock = (block) => {
       return <blockquote key={id}>{value.text[0].plain_text}</blockquote>;
     case "code":
       return (
-        <pre className={styles.pre}>
-          <code className={styles.code_block} key={id}>
+        <pre className="">
+          <code className="" key={id}>
             {value.text[0].plain_text}
           </code>
         </pre>
@@ -141,7 +142,7 @@ const renderBlock = (block) => {
       const caption_file = value.caption ? value.caption[0]?.plain_text : "";
       return (
         <figure>
-          <div className={styles.file}>
+          <div className="">
             📎{" "}
             <Link href={src_file} passHref>
               {lastElementInArray.split("?")[0]}
@@ -153,7 +154,7 @@ const renderBlock = (block) => {
     case "bookmark":
       const href = value.url
       return (
-        <a href={ href } target="_brank" className={styles.bookmark}>
+        <a href={ href } target="_brank" className="">
           { href }
         </a>
       );
@@ -175,8 +176,8 @@ export default function Post({ page, blocks }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <article className={styles.container}>
-        <h1 className={styles.name}>
+      <article className="">
+        <h1 className="">
           <Text text={page.properties.Name.title} />
         </h1>
         <section>
@@ -184,7 +185,7 @@ export default function Post({ page, blocks }) {
             <Fragment key={block.id}>{renderBlock(block)}</Fragment>
           ))}
           <Link href="/">
-            <a className={styles.back}>← Go home</a>
+            <a className="">← Go home</a>
           </Link>
         </section>
       </article>
