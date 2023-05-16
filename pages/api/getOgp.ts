@@ -7,11 +7,6 @@ import console from "console";
 async function getOgp(req: NextApiRequest, res: NextApiResponse<OgpData>) {
   // クエリパラメタからURL情報を受け取り、エンコードする
   const url = req.query.url as string;
-  if (!url) {
-    return res.status(400).json({
-      error: "URL is missing",
-    });
-  }
   const encodeURL = encodeURI(url as string);
 
   // エンコード済みURLに対してリクエストを行い、レスポンスからopgDataを抽出する
@@ -52,10 +47,10 @@ async function getOgp(req: NextApiRequest, res: NextApiResponse<OgpData>) {
         }, {});
 
         // ”https://” を除いた、最初の/まで抜き出す
-        const siteUrl = ogp["url"].substring(
-          0,
-          ogp["url"].indexOf("/", 8)
-        ) as string;
+        const siteUrl = (ogp["url"] ?? "").substring(
+            0,
+            (ogp["url"] ?? "").indexOf("/", 8)
+          ) as string;
 
         // 多くのサイトはroot/favicon.icoでfaviconを取得できるようになっているらしい
         const faviconPath = "/favicon.ico";
