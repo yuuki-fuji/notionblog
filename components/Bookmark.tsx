@@ -58,7 +58,7 @@ export const BookmarkViewMobile: FunctionComponent<BookmarkViewProps> = ({ ogp }
           <p className="overflow-hidden h-12 text-base text-gray-500">
             {description}
           </p>
-          <p className={`text-base truncate ${ml}`}>{pageUrl}</p>
+          <p className={`text-base truncate`}>{pageUrl}</p>
         </div>
       </article>
     </a>
