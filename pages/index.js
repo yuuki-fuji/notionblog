@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { getDatabase } from "../lib/notion";
 import { Text } from "./[id].js";
-import styles from "./index.module.css";
 
 export const databaseId = process.env.NOTION_DATABASE_ID;
 
@@ -15,9 +14,15 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="">
-        <h2 className="">All Posts</h2>
-        <ol className="">
+      <main className="px-20 max-w-[700px] mx-auto">
+        <header className="mb-12">
+          <h2>便利Toolの紹介ページです</h2>
+        </header>
+
+        <h2 className="mb-5 pb-5 border-b border-[#dedede] uppercase opacity-60 tracking-wider dark:border-[#343539]">
+          All Posts
+        </h2>
+        <ol className="list-none m-0 p-0">
           {posts.map((post) => {
             const date = new Date(post.last_edited_time).toLocaleString(
               "en-US",
@@ -28,16 +33,16 @@ export default function Home({ posts }) {
               }
             );
             return (
-              <li key={post.id} className="">
-                <h3 className="">
+              <li key={post.id} className="mb-12">
+                <h3 className="mb-2.5 text-2xl">
                   <Link href={`/${post.id}`}>
-                    <a>
+                    <a className="text-inherit">
                       <Text text={post.properties.Name.title} />
                     </a>
                   </Link>
                 </h3>
 
-                <p className="">{date}</p>
+                <p className="mt-0 mb-3 opacity-60">{date}</p>
                 <Link href={`/${post.id}`}>
                   <a> Read post →</a>
                 </Link>

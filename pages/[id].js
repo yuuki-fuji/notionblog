@@ -3,8 +3,6 @@ import Head from "next/head";
 import { getDatabase, getPage, getBlocks } from "../lib/notion";
 import Link from "next/link";
 import { databaseId } from "./index.js";
-import styles from "./post.module.css";
-
 export const Text = ({ text }) => {
   if (!text) {
     return null;
@@ -18,11 +16,11 @@ export const Text = ({ text }) => {
       // TODO:tailwindcss でスタイルを当てなおす
       <span
         className={[
-          bold ? styles.bold : "",
-          code ? styles.code : "",
-          italic ? styles.italic : "",
-          strikethrough ? styles.strikethrough : "",
-          underline ? styles.underline : "",
+          bold ? "font-bold" : "",
+          code ? "font-mono py-0.5 px-1 rounded-sm bg-[#F2F2F2] dark:bg-[#0F081C]" : "",
+          italic ? "italic" : "",
+          strikethrough ? "line-through" : "",
+          underline ? "underline" : "",
         ].join(" ")}
         style={color !== "default" ? { color } : {}}
       >
@@ -117,9 +115,9 @@ const renderBlock = (block) => {
         value.type === "external" ? value.external.url : value.file.url;
       const caption = value.caption ? value.caption[0]?.plain_text : "";
       return (
-        <figure>
-          <img src={src} alt={caption} />
-          {caption && <figcaption>{caption}</figcaption>}
+        <figure className="mx-0">
+          <img src={src} alt={caption} className="w-full h-auto" />
+          {caption && <figcaption className="opacity-60">{caption}</figcaption>}
         </figure>
       );
     case "divider":
@@ -128,8 +126,8 @@ const renderBlock = (block) => {
       return <blockquote key={id}>{value.text[0].plain_text}</blockquote>;
     case "code":
       return (
-        <pre className="">
-          <code className="" key={id}>
+        <pre className="bg-]#F2F2F2] py-0.5 px-1 my-5 mx-0 leading-loose rounded-[12px] overflow-auto dark:bg-[#0F081C]">
+          <code className="p-5 font-mono flex flex-wrap" key={id}>
             {value.text[0].plain_text}
           </code>
         </pre>
@@ -142,9 +140,9 @@ const renderBlock = (block) => {
       const caption_file = value.caption ? value.caption[0]?.plain_text : "";
       return (
         <figure>
-          <div className="">
+          <div className="py-0.5 px-1 no-underline hover:cursor-pointer hover:bg-[#37352F]/[.08] hover:rounded-sm">
             📎{" "}
-            <Link href={src_file} passHref>
+            <Link href={src_file} passHref className="text-inherit">
               {lastElementInArray.split("?")[0]}
             </Link>
           </div>
@@ -154,7 +152,7 @@ const renderBlock = (block) => {
     case "bookmark":
       const href = value.url
       return (
-        <a href={ href } target="_brank" className="">
+        <a href={ href } target="_brank" className="block mb-2.5">
           { href }
         </a>
       );
@@ -176,8 +174,8 @@ export default function Post({ page, blocks }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <article className="">
-        <h1 className="">
+      <article className="py-0 px-5 my-0 mx-auto max-w-[700px] leading-normal">
+        <h1 className="text-3xl">
           <Text text={page.properties.Name.title} />
         </h1>
         <section>
@@ -185,7 +183,7 @@ export default function Post({ page, blocks }) {
             <Fragment key={block.id}>{renderBlock(block)}</Fragment>
           ))}
           <Link href="/">
-            <a className="">← Go home</a>
+            <a className="inline-block mb-5">← Go home</a>
           </Link>
         </section>
       </article>
@@ -233,6 +231,6 @@ export const getStaticProps = async (context) => {
       page,
       blocks: blocksWithChildren,
     },
-    revalidate: 1, //ISR...前回から何秒以内のアクセスを無視するか指定します。
+    revalidate: 1, 
   };
 };
