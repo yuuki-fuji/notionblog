@@ -1,8 +1,8 @@
-// import "dotenv/config";
 import Head from "next/head";
 import Link from "next/link";
 import { getDatabase } from "../lib/notion";
 import { Text } from "./[id].js";
+import { Bookmark } from "../components/Bookmark";
 
 export const databaseId = process.env.NOTION_DATABASE_ID;
 
@@ -35,14 +35,17 @@ export default function Home({ posts }) {
             );
             return (
               <li key={post.id} className="mb-12">
-                <h3 className="mb-2.5 text-2xl">
+                <h3 className="mb-7 text-2xl">
                   <Link href={`/${post.id}`}>
                     <a className="text-inherit">
                       <Text text={post.properties.Name.title} />
                     </a>
                   </Link>
                 </h3>
-              <p>{post.properties.URL.url}</p>
+                <div className="h-full">
+                {post.properties.URL.url && <Bookmark url={post.properties.URL.url} />}
+                    <div className="h-4"></div>
+                </div>
                 <p className="mt-0 mb-3 opacity-60">{date}</p>
                 <Link href={`/${post.id}`}>
                   <a> Read post →</a>
