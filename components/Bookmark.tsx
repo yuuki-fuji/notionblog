@@ -9,9 +9,8 @@ interface BookmarkViewProps {
 
 // Presentational Component for Desktop
 export const BookmarkViewDesktop: FunctionComponent<BookmarkViewProps> = ({ ogp }) => {
-  const { title, description, faviconUrl, pageUrl, ogImageUrl } = ogp;
+  const { title, description,  pageUrl, ogImageUrl } = ogp;
   const w = ogImageUrl ? "w-3/5" : "w-full";
-  const ml = faviconUrl ? "ml-2" : "";
 
   return (
     <a
@@ -28,10 +27,7 @@ export const BookmarkViewDesktop: FunctionComponent<BookmarkViewProps> = ({ ogp 
           <p className="overflow-hidden h-12 text-base text-gray-500">
             {description}
           </p>
-          <div className="flex items-center">
-            {faviconUrl && <img src={faviconUrl} className="h-6" alt="" />}
-            <p className={`text-base truncate ${ml}`}>{pageUrl}</p>
-          </div>
+          <p className={`text-base truncate`}>{pageUrl}</p>
         </div>
         {ogImageUrl && (
           <div className="w-2/5 h-full rounded">
