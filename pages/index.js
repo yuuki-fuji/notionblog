@@ -6,6 +6,7 @@ import { Text } from "./[id].js";
 
 export const databaseId = process.env.NOTION_DATABASE_ID;
 
+
 export default function Home({ posts }) {
   return (
     <div>
@@ -41,7 +42,7 @@ export default function Home({ posts }) {
                     </a>
                   </Link>
                 </h3>
-
+              <p>{post.properties.URL.url}</p>
                 <p className="mt-0 mb-3 opacity-60">{date}</p>
                 <Link href={`/${post.id}`}>
                   <a> Read post →</a>
