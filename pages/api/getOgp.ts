@@ -6,7 +6,12 @@ import console from "console";
 
 async function getOgp(req: NextApiRequest, res: NextApiResponse<OgpData>) {
   // クエリパラメタからURL情報を受け取り、エンコードする
-  const { url } = req.query;
+  const url = req.query.url as string;
+  if (!url) {
+    return res.status(400).json({
+      error: "URL is missing",
+    });
+  }
   const encodeURL = encodeURI(url as string);
 
   // エンコード済みURLに対してリクエストを行い、レスポンスからopgDataを抽出する
@@ -58,7 +63,6 @@ async function getOgp(req: NextApiRequest, res: NextApiResponse<OgpData>) {
         const ogpData: OgpData = {
           title: titleTag,
           description: ogp["description"] as string,
-          faviconUrl: siteUrl + faviconPath,
           ogImageUrl: ogp["image"] as string,
           pageUrl: url as string,
         };
@@ -66,14 +70,13 @@ async function getOgp(req: NextApiRequest, res: NextApiResponse<OgpData>) {
         return ogpData;
       });
 
-    // 返ってきたデータから、title, description, ogImageUrl, faviconUrl, pageeUrlを抽出して返す
-    const { pageUrl, title, description, faviconUrl, ogImageUrl } = response;
+    // 返ってきたデータから、title, description, ogImageUrl,  pageeUrlを抽出して返す
+    const { pageUrl, title, description,  ogImageUrl } = response;
 
     res.status(200).json({
       pageUrl,
       title,
       description,
-      faviconUrl,
       ogImageUrl,
     });
   } catch (error) {
@@ -81,7 +84,6 @@ async function getOgp(req: NextApiRequest, res: NextApiResponse<OgpData>) {
     res.status(200).json({
       title: "",
       description: "",
-      faviconUrl: "",
       ogImageUrl: "",
       pageUrl: url as string,
     });
