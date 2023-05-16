@@ -41,9 +41,7 @@ export const BookmarkViewDesktop: FunctionComponent<BookmarkViewProps> = ({ ogp 
 
 // Presentational Component for Mobile
 export const BookmarkViewMobile: FunctionComponent<BookmarkViewProps> = ({ ogp }) => {
-  const { title, description, faviconUrl, pageUrl, ogImageUrl } = ogp;
-
-  const ml = faviconUrl ? "ml-2" : "";
+  const { title, description, pageUrl, ogImageUrl } = ogp;
 
   return (
     <a href={pageUrl} target="_blank" rel="noreferrer" className="md:hidden">
@@ -60,10 +58,7 @@ export const BookmarkViewMobile: FunctionComponent<BookmarkViewProps> = ({ ogp }
           <p className="overflow-hidden h-12 text-base text-gray-500">
             {description}
           </p>
-          <div className="flex items-center">
-            {faviconUrl && <img src={faviconUrl} className="h-6" alt="" />}
-            <p className={`text-base truncate ${ml}`}>{pageUrl}</p>
-          </div>
+          <p className={`text-base truncate ${ml}`}>{pageUrl}</p>
         </div>
       </article>
     </a>
