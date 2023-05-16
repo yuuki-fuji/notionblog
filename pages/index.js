@@ -15,7 +15,7 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="px-20 max-w-[700px] mx-auto">
+      <main className="px-8 max-w-[700px] mx-auto">
         <header className="mb-12">
           <h2>便利Toolの紹介ページです</h2>
         </header>
